@@ -31,11 +31,11 @@ class PythonOrgSearch(unittest.TestCase):
     
     def test_upload_video(self):
         # Go to Upload page
-        # We should use @data-qa-id here and for all other selectors, but for some reason I still need to figure out 
-        # why when getting the element, this is not interactable.
+        # I should use @data-qa-id here and for all other selectors, but for some reason I need to figure out 
+        # why when getting the element, this is not interactable. TODO
         # Using Xpath as a workaround, even when this is not reliable and likely to break 
         # Also define vars with selector to improve readability
-        # upload_page_sel = 'webnav-globalnav-upload' # this will be the selector using @data-qa-id
+        # upload_page_sel = 'webnav-globalnav-upload' # this would be the selector using @data-qa-id
         upload_page_sel = '//*[@id="ssr-webnav"]/div/div[1]/nav[1]/div[4]/a[1]/span' # this is the xpath selector
         self.page.click_elem(upload_page_sel) 
 
@@ -47,8 +47,9 @@ class PythonOrgSearch(unittest.TestCase):
         upload_file_path_sel = '//*[@id="web-uploader-app"]/div/section/div/div/div/div/div[2]/div[2]/div[1]/input'
         self.page.input_text(upload_file_path_sel, file_to_upload)
 
-        # Wait for upload to complete (automatically shared with all team members by default), it has 90 seconds to 
-        # complete the download for a 15.7 MB file, otherwise it will fail
+        # Wait for upload to complete (automatically shared with all team members by default, we could also include an 
+        # specific test for sharing with specific groups, is it OK this way??). It has 90 seconds to complete the 
+        # upload for a 15.7 MB file, otherwise it will fail
         self.page.wait_for_file_to_upload(90)
         # Save uploaded file, the file name will be a 6 chars random string to make sure it is unique
         file_name = self.page.save_file()
@@ -58,7 +59,9 @@ class PythonOrgSearch(unittest.TestCase):
         self.page.click_elem(library_page_sel)
         self.page.wait_for_page_title("Library - Hudl", 10)
 
-        # It gets some time to load video library, if the video it is not properly loaded in 20 secs, it will fail
+        # It gets some time to load the video library, if the video is not properly loaded in 20 secs, it will fail
+        # We get all the video elements, but we need to make sure we retrieve more than one element since the first
+        # one loaded is 'Filter by' element
         elems = self.page.get_elems('uni-subhead')
         cont = 0
         while len(elems) <= 1 and cont < 5:
