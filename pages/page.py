@@ -61,6 +61,7 @@ class Page:
         # Using xpath to get element which summarizes whether upload is in process or complete
         self.wait_for_elem('//*[@id="web-uploader-app"]/div/section/div/div/div[1]/div/div[1]/h3', 10)
         elem = self.get_elem('//*[@id="web-uploader-app"]/div/section/div/div/div[1]/div/div[1]/h3')
+        # For some reason I get a more stable result using my own "wait until" than WebDriverWait, to investigate
         cont = 0
         while elem.text != "Upload Complete" and cont < timeout:
             elem = self.get_elem('//*[@id="web-uploader-app"]/div/section/div/div/div[1]/div/div[1]/h3')
