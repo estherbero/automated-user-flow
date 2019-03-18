@@ -1,12 +1,9 @@
-# hudl-interview
+# automated-user-flow
 
-This repository contains the tests required in the interview process:
-  - Setup an automation environment on your local machine using Selenium
-  - Automate the test case to: 
+This repository contains the tests for a user flow:
      - Login into hudl.com with your credentials.
      - Upload video
-      - Share it with the Team Members
-  - Push your test to a github repository (a public repo is fine) and share the link
+     - Share it with the Team Members
 
 ## Getting started
 
